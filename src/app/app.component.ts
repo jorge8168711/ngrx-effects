@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: /*html*/ `
+    <!-- <h1> Welcome to {{ title }}!</h1> -->
+    <app-sidenav></app-sidenav>
+  `
 })
 export class AppComponent {
-  title = 'ngrx-effects';
+  public title = 'ngrx-effects';
 }
