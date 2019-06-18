@@ -3,31 +3,39 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidenavComponent, UserComponent, UsersListComponent } from './components';
+import { SharedModule } from './modules/shared.module';
+import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatInputModule } from '@angular/material';
-import { SidenavComponent } from './components';
+
+const routes: Routes = [
+  { path: '', component: UsersListComponent },
+  { path: 'user/:userId', component: UserComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent
+    SidenavComponent,
+    UserComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule
+    SharedModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    LayoutModule
   ],
   exports: [
-    SidenavComponent
+    SidenavComponent,
+    UserComponent,
+    UsersListComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

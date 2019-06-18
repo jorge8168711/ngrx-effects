@@ -9,16 +9,15 @@ import { map } from 'rxjs/operators';
   template: /*html*/ `
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-          [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-          [mode]="(isHandset$ | async) ? 'over' : 'side'"
-          [opened]="!(isHandset$ | async)">
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="!(isHandset$ | async)">
 
         <mat-toolbar>Menu</mat-toolbar>
 
         <mat-nav-list>
-          <a mat-list-item href="#">Link 1</a>
-          <a mat-list-item href="#">Link 2</a>
-          <a mat-list-item href="#">Link 3</a>
+          <a mat-list-item routerLink="/">Users</a>
+          <a mat-list-item routerLink="user/0">Profile</a>
         </mat-nav-list>
       </mat-sidenav>
 
@@ -33,19 +32,18 @@ import { map } from 'rxjs/operators';
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
 
-
           <span>ngrx-effects</span>
-
-          <a mat-button href="#">Home</a>
-          <a mat-button href="#">Usuario</a>
 
           <div class="sidenav-search">
             <mat-form-field appearance="outline" floatLabel="never">
-              <input matInput placeholder="User ID">
+              <input (keyup)="search($event)" matInput placeholder="User ID">
             </mat-form-field>
           </div>
         </mat-toolbar>
-        <!-- Add Content Here -->
+
+        <main class="main">
+          <router-outlet></router-outlet>
+        </main>
       </mat-sidenav-content>
     </mat-sidenav-container>
   `,
@@ -80,12 +78,12 @@ import { map } from 'rxjs/operators';
   `]
 })
 export class SidenavComponent {
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+    .pipe(map(result => result.matches));
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
+  public search(event: any) {
+    console.log(event.target.value);
+  }
 }
