@@ -1,7 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducers';
+import { UiState } from '../store/reducers/ui.reducers';
 
 @Component({
   selector: 'app-sidenav',
@@ -32,7 +35,7 @@ import { map } from 'rxjs/operators';
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
 
-          <span>ngrx-effects</span>
+          <span>Effects</span>
 
           <div class="sidenav-search">
             <mat-form-field appearance="outline" floatLabel="never">
@@ -40,6 +43,11 @@ import { map } from 'rxjs/operators';
             </mat-form-field>
           </div>
         </mat-toolbar>
+
+
+        <mat-progress-bar mode="query"
+          *ngIf="(uiState$ | async)?.appIsLoading;"></mat-progress-bar>
+
 
         <main class="main">
           <router-outlet></router-outlet>
@@ -77,11 +85,23 @@ import { map } from 'rxjs/operators';
     }
   `]
 })
-export class SidenavComponent {
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+export class SidenavComponent implements OnInit {
+  public uiState$: Observable<UiState>;
+  public isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private store: Store<AppState>
+  ) {
+
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.uiState$ = this.store.select('ui');
+    });
+  }
 
   public search(event: any) {
     console.log(event.target.value);

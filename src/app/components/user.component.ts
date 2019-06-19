@@ -7,38 +7,34 @@ import { User } from '../models';
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar
-          [ngStyle]="{ background: getAvatarStyle(user?.avatar) }"></div>
+          [ngStyle]="{ background: setAvatarImage(userData?.avatar) }"></div>
 
           <mat-card-title>
-          {{ user?.first_name + ' ' + user?.last_name }}
+          {{ userData?.first_name + ' ' + userData?.last_name }}
         </mat-card-title>
-        <mat-card-subtitle>{{ user?.email }}</mat-card-subtitle>
+
+        <mat-card-subtitle>{{ userData?.email }}</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
-        <strong>ID:</strong> {{ user?.id }}
+        <strong>ID:</strong> {{ userData?.id }}
       </mat-card-content>
     </mat-card>
   `,
   styles: [ /*css*/ `
-    .title { color: tomato; }
-
     .mat-card {
       margin-bottom: 30px;
     }
   `]
 })
 export class UserComponent {
-  public user: User = null;
-
-  @Input('userData') set userData(user: User) {
-    console.log(user);
-    this.user = user;
-  }
+  @Input() public userData: User;
 
   constructor() {}
 
-  public getAvatarStyle(url: string): string {
-    return `transparent url(${url}) center/cover no-repeat`;
+  public setAvatarImage(url: string): string {
+    return url
+      ? `transparent url(${url}) center/cover no-repeat`
+      : 'transparent url(assets/account_placeholder.svg) center/cover no-repeat';
   }
 }
