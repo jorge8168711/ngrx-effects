@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+pre {
+  color: #856404;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.25;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: .5em;
+}
+
+
+.main {
+  padding: 20px;
+}
