@@ -11,3 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Angular material
 - Sidenav component
 - Base project structure
+
+## [0.0.2] - 2019-06-17
+### Added
+- Styles for pree tag
+- Users list component
+- User component
+- Sidenav routes
+- Usermodel
+- Users service
+
+
+## [1.0.0] - 2019-06-19
+### Added
+- Loading interactions
+- NGRX store
+- NGRX effects
+- NGRX devtools
+- NGRX ui store
+- NGRX users store
+- Users service implementatio on users components
+- no user image asset
+
+### Changed
+- Sidenav adjustments

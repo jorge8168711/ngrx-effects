@@ -7,3 +7,7 @@ export interface UsersResponse {
   total_pages: number;
   data: User[];
 }
+
+export interface UserResponse {
+  data: User;
+}

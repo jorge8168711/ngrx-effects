@@ -1,27 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UsersService } from '../services';
+import { AppState } from '../store/app.reducers';
+import { Store } from '@ngrx/store';
+import { GetUsers } from '../store/actions';
+import { UsersState } from '../store/reducers';
 
 @Component({
   selector: 'app-users-list',
   template: /*html*/ `
     <h1>Users</h1>
-    <!-- <pre>{{ users$ | async | json }}</pre> -->
 
-    <app-user *ngFor="let user of (this.users$ | async).data || []"
-      [userData]="user">
-    </app-user>
-  `,
-  styles: [ /*css*/ `
-    .title { color: tomato; }
-  `]
+    <p *ngIf="(usersState$ | async).loading; else notLoading">loading...</p>
+
+    <pre *ngIf="(usersState$ | async).error as error">
+      {{ error | json }}
+    </pre>
+
+    <ng-template #notLoading>
+      <app-user [userData]="user"
+        *ngFor="let user of (usersState$ | async)?.users || []; trackBy: trackByFn">
+      </app-user>
+    </ng-template>
+
+  `
 })
 export class UsersListComponent implements OnInit {
-  public users$: Observable<any>;
+  public usersState$: Observable<UsersState>;
 
-  constructor(public users: UsersService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.users$ = this.users.get();
+    this.store.dispatch(new GetUsers());
+
+    this.usersState$ = this.store.select('users');
   }
+
+  public trackByFn(index, item) {
+    return item.id;
+ }
 }
