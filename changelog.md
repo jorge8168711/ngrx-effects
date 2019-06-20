@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NGRX users store
 - Users service implementatio on users components
 - no user image asset
+- scripts for deploy to github pages
+- User actions, effects and reducers
 
 ### Changed
 - Sidenav adjustments
