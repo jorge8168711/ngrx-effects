@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducers';
-import { UiState } from '../store/reducers/ui.reducers';
+import { UiState } from '../store/reducers/ui.reducer';
 
 @Component({
   selector: 'app-sidenav',
@@ -20,7 +20,6 @@ import { UiState } from '../store/reducers/ui.reducers';
 
         <mat-nav-list>
           <a mat-list-item routerLink="/">Users</a>
-          <a mat-list-item routerLink="user/0">Profile</a>
         </mat-nav-list>
       </mat-sidenav>
 
@@ -35,19 +34,11 @@ import { UiState } from '../store/reducers/ui.reducers';
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
 
-          <span>Effects</span>
-
-          <div class="sidenav-search">
-            <mat-form-field appearance="outline" floatLabel="never">
-              <input (keyup)="search($event)" matInput placeholder="User ID">
-            </mat-form-field>
-          </div>
+          <span>Effects example</span>
         </mat-toolbar>
-
 
         <mat-progress-bar mode="query"
           *ngIf="(uiState$ | async)?.appIsLoading;"></mat-progress-bar>
-
 
         <main class="main">
           <router-outlet></router-outlet>

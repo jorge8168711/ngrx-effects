@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from './modules/shared.module';
 import { AppComponent } from './app.component';
-import { SidenavComponent, UserComponent, UsersListComponent } from './components';
+import { SidenavComponent, UserComponent, UsersListComponent, UserDetailComponent } from './components';
 
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -15,11 +15,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './store/app.reducers';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import {  appEffects } from './store/effects';
+import { appEffects } from './store/effects';
 
 const routes: Routes = [
   { path: '', component: UsersListComponent },
-  { path: 'user/:userId', component: UserComponent }
+  { path: 'users/:userId', component: UserDetailComponent }
 ];
 
 @NgModule({
@@ -27,7 +27,8 @@ const routes: Routes = [
     AppComponent,
     SidenavComponent,
     UserComponent,
-    UsersListComponent
+    UsersListComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

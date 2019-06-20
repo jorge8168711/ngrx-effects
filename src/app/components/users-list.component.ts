@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { AppState } from '../store/app.reducers';
 import { Store } from '@ngrx/store';
 import { GetUsers } from '../store/actions';
-import { filter } from 'rxjs/operators';
 import { UsersState } from '../store/reducers';
 
 @Component({
@@ -22,6 +21,7 @@ import { UsersState } from '../store/reducers';
         *ngFor="let user of (usersState$ | async)?.users || []; trackBy: trackByFn">
       </app-user>
     </ng-template>
+
   `
 })
 export class UsersListComponent implements OnInit {

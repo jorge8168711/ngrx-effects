@@ -19,6 +19,10 @@ import { User } from '../models';
       <mat-card-content>
         <strong>ID:</strong> {{ userData?.id }}
       </mat-card-content>
+
+      <mat-card-actions>
+        <a mat-button [routerLink]="['/users', userData?.id]">Got to detail</a>
+      </mat-card-actions>
     </mat-card>
   `,
   styles: [ /*css*/ `

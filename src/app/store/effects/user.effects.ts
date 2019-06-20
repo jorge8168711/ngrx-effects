@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { GET_USERS, GetUsersSuccess, GetUsersFail } from '../actions';
+import { GET_USER, GetUser, GetUserSuccess, GetUserFail } from '../actions';
 import { map, switchMap, catchError, take } from 'rxjs/operators';
 import { User } from 'src/app/models';
 import { UsersService } from 'src/app/services';
 import { of } from 'rxjs';
 
 @Injectable()
-export class UsersEffects {
-
+export class UserEffects {
   @Effect()
-  getUsers$ = this.actions$.pipe(
-    ofType(GET_USERS),
-    switchMap(() => this.users.get().pipe(
+  getUser$ = this.actions$.pipe(
+    ofType(GET_USER),
+    switchMap((action: GetUser) => this.users.getById(action.id).pipe(
       take(1),
-      map( (users: User[]) => {
-        return new GetUsersSuccess(users);
+      map( (user: User) => {
+        return new GetUserSuccess(user);
       }),
       catchError(err => {
-        return of(new GetUsersFail(err));
+        return of(new GetUserFail(err));
       })
     ))
   );
+
   constructor(private actions$: Actions, private users: UsersService) {}
 }
